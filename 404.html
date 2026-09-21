@@ -4,8 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>頁面找不到 - 網站已全新改版</title>
-  <!-- 5 秒後自動跳轉回首頁 -->
+  
+  <!-- 1. Meta 標籤跳轉（相容性備用） -->
   <meta http-equiv="refresh" content="5;url=/">
+  
+  <!-- 2. JavaScript 強制跳轉（解決瀏覽器忽略 404 Meta Refresh 問題） -->
+  <script>
+    setTimeout(function() {
+      window.location.replace("/");
+    }, 5000);
+  </script>
+
   <style>
     * { box-sizing: border-box; }
     body {
@@ -50,7 +59,7 @@
     <h1>404</h1>
     <h2>網站已全新改版</h2>
     <p>您所存取的舊頁面已不復存在。<br>系統將於 5 秒後自動引導您前往新版首頁。</p>
-    <a href="/index.html" class="btn">立即返回首頁</a>
+    <a href="/" class="btn">立即返回首頁</a>
   </div>
 </body>
 </html>
