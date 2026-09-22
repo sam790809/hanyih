@@ -59,8 +59,8 @@
       "url": "https://hanyih.com.tw/",
       "name": "漢益塑膠實業 | 專業真空成型、抗靜電Tray盤與精密模具廠",
       "publisher": { "@id": "https://hanyih.com.tw/#organization" }
-    }
-{
+    },
+    {
       "@type": "FAQPage",
       "@id": "https://hanyih.com.tw/#faq",
       "mainEntity": [
@@ -81,6 +81,7 @@
           }
         }
       ]
+    }
   ]
 }
 </script>
@@ -100,10 +101,34 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; color: var(--text-dark); line-height: 1.6; background-color: #fff; }
     
+    /* ------------------------------------------------------------- */
+    /* 多語系切換控制 CSS (多語系隱藏/顯示邏輯)                         */
+    /* ------------------------------------------------------------- */
+    body.lang-zh .lang-en { display: none !important; }
+    body.lang-en .lang-zh { display: none !important; }
+
+    .lang-switch-btn {
+      background: transparent;
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+    .lang-switch-btn:hover, .lang-switch-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
     /* Header & Navigation */
     header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
     .top-bar { background-color: var(--primary-dark); color: #fff; padding: 6px 5%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
     .top-bar a { color: #fff; text-decoration: none; margin-left: 15px; }
+    .top-bar-right { display: flex; align-items: center; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; max-width: 1200px; margin: 0 auto; }
     .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 10px; }
     .logo span { font-size: 0.9rem; color: var(--text-muted); font-weight: normal; }
@@ -123,8 +148,8 @@
 
     /* Typography */
     h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 20px; border-bottom: 3px solid var(--secondary); padding-bottom: 10px; }
-    h3 { font-size: 1.6rem; color: var(--primary-dark); margin: 30px 0 15px; border-left: 5px solid var(--secondary); padding-left: 10px; }
-    h4 { font-size: 1.2rem; color: var(--text-dark); margin: 15px 0 10px; }
+    h2 { font-size: 1.6rem; color: var(--primary-dark); margin: 30px 0 15px; border-left: 5px solid var(--secondary); padding-left: 10px; }
+    h3 { font-size: 1.2rem; color: var(--text-dark); margin: 15px 0 10px; }
     p { margin-bottom: 15px; text-align: justify; }
 
     /* Feature Cards & Grid */
@@ -152,9 +177,7 @@
     .btn { display: inline-block; background: var(--accent); color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.3s; margin-top: 15px; border: none; cursor: pointer; }
     .btn:hover { background: #e05e00; }
 
-    /* ------------------------------------------------------------- */
-    /* 新增：產品圖庫 (Gallery) 專用 CSS 樣式                       */
-    /* ------------------------------------------------------------- */
+    /* 產品圖庫 (Gallery) 專用 CSS 樣式 */
     .filter-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; justify-content: flex-start; }
     .filter-btn { background: var(--bg-light); color: var(--text-dark); border: 1px solid var(--border-color); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
     .filter-btn:hover, .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
@@ -165,7 +188,6 @@
     
     .gallery-card a { text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; }
     
-    /* 關鍵：圖片自適應容器，維持 4:3 比例且不會變形 */
     .gallery-img-wrapper { width: 100%; aspect-ratio: 4 / 3; background-color: #f0f3f6; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
     .gallery-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
     .gallery-card:hover .gallery-img-wrapper img { transform: scale(1.06); }
@@ -175,28 +197,39 @@
     .gallery-title { font-size: 1.05rem; color: var(--primary-dark); font-weight: 600; margin-bottom: 5px; }
     .gallery-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0; }
 
+    /* 地圖區塊樣式 */
+    .map-container { margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .map-container iframe { width: 100%; display: block; }
+
     /* Footer */
     footer { background-color: var(--primary-dark); color: #fff; padding: 40px 5% 20px; font-size: 0.9rem; }
     .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
     .footer-bottom { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #aaa; }
 
     @media (max-width: 768px) {
+      .top-bar { flex-direction: column; gap: 5px; text-align: center; }
       .nav-links { flex-direction: column; gap: 10px; width: 100%; text-align: center; display: none; }
       .nav-links.show { display: flex; padding-top: 15px; }
-      .menu-toggle { display: block; font-size: 1.5rem; cursor: pointer; }
       .grid-2 { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; } /* 手機版每列自動顯排2個 */
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
     }
   </style>
 </head>
-<body>
+<body class="lang-zh">
 
   <!-- Top Bar -->
   <div class="top-bar">
-    <div>ISO 9001:2015 認證廠商 | 深耕真空成型逾四十載</div>
     <div>
-      <a href="tel:+886425663216">📞 電話：04-25663216</a>
+      <span class="lang-zh">ISO 9001:2015 認證廠商 | 深耕真空成型逾四十載</span>
+      <span class="lang-en">ISO 9001:2015 Certified | Over 40 Years of Thermoforming Excellence</span>
+    </div>
+    <div class="top-bar-right">
+      <a href="tel:+886425663216">📞 <span class="lang-zh">電話：04-25663216</span><span class="lang-en">Tel: +886-4-25663216</span></a>
       <a href="mailto:service@hanyih.com.tw">✉️ service@hanyih.com.tw</a>
+      
+      <!-- 多語系切換按鈕 -->
+      <button class="lang-switch-btn active" id="btn-zh" onclick="setLanguage('zh')">中文</button>
+      <button class="lang-switch-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
     </div>
   </div>
 
@@ -207,13 +240,36 @@
         漢益塑膠實業 <span>HAN YIH PLASTICS</span>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a onclick="switchTab('home')" id="nav-home" class="active">首頁</a></li>
-        <li><a onclick="switchTab('about')" id="nav-about">關於漢益</a></li>
-        <li><a onclick="switchTab('products')" id="nav-products">產品與應用</a></li>
-        <!-- 新增：產品圖庫選單項目 -->
-        <li><a onclick="switchTab('gallery')" id="nav-gallery">產品圖庫</a></li>
-        <li><a onclick="switchTab('technology')" id="nav-technology">真空成型與模具技術</a></li>
-        <li><a onclick="switchTab('contact')" id="nav-contact">聯絡我們</a></li>
+        <li>
+          <a onclick="switchTab('home')" id="nav-home" class="active">
+            <span class="lang-zh">首頁</span><span class="lang-en">Home</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="switchTab('about')" id="nav-about">
+            <span class="lang-zh">關於漢益</span><span class="lang-en">About Us</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="switchTab('products')" id="nav-products">
+            <span class="lang-zh">產品與應用</span><span class="lang-en">Products & Applications</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="switchTab('gallery')" id="nav-gallery">
+            <span class="lang-zh">產品圖庫</span><span class="lang-en">Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="switchTab('technology')" id="nav-technology">
+            <span class="lang-zh">真空成型與模具技術</span><span class="lang-en">Technology & Molds</span>
+          </a>
+        </li>
+        <li>
+          <a onclick="switchTab('contact')" id="nav-contact">
+            <span class="lang-zh">聯絡我們</span><span class="lang-en">Contact Us</span>
+          </a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -224,358 +280,620 @@
     <!-- 1. 首頁 (Home) -->
     <section id="home" class="page-section active">
       <div class="cta-box" style="text-align: left; background: linear-gradient(135deg, #003366, #0066cc);">
-        <span style="background:var(--accent); padding:4px 10px; border-radius:4px; font-size:0.85rem;">專業真空成型大廠</span>
-        <h1 style="color:#fff; border:none; margin:10px 0;">高效能真空成型包裝與精密模具開發解決方案</h1>
-        <p style="font-size:1.1rem; max-width:800px;">漢益塑膠擁有 38 台高效能真空成型機與百萬級潔淨室，全方位整合圖面設計、CNC 模具開發與自動化 Tray 盤客製生產，提供高精度、高品質的塑膠包裝解決方案。</p>
-        <button onclick="switchTab('contact')" class="btn">立即取得專業估價與諮詢</button>
+        <span style="background:var(--accent); padding:4px 10px; border-radius:4px; font-size:0.85rem;">
+          <span class="lang-zh">專業真空成型大廠</span><span class="lang-en">Leading Thermoforming Manufacturer</span>
+        </span>
+        <h1 style="color:#fff; border:none; margin:10px 0;">
+          <span class="lang-zh">高效能真空成型包裝與精密模具開發解決方案</span>
+          <span class="lang-en">High-Performance Thermoforming Packaging & Precision Mold Solutions</span>
+        </h1>
+        <p style="font-size:1.1rem; max-width:800px;">
+          <span class="lang-zh">漢益塑膠擁有 38 台高效能真空成型機與百萬級潔淨室，全方位整合圖面設計、CNC 模具開發與自動化 Tray 盤客製生產，提供高精度、高品質的塑膠包裝解決方案。</span>
+          <span class="lang-en">Equipped with 38 thermoforming machines and a Class 1,000,000 cleanroom, Han Yih integrates CAD design, CNC mold development, and custom automated tray production to deliver high-precision plastic packaging solutions.</span>
+        </p>
+        <button onclick="switchTab('contact')" class="btn">
+          <span class="lang-zh">立即取得專業估價與諮詢</span><span class="lang-en">Get a Quote & Consultation</span>
+        </button>
       </div>
 
-      <h3>核心競爭優勢</h3>
+      <h2>
+        <span class="lang-zh">核心競爭優勢</span><span class="lang-en">Core Advantages</span>
+      </h2>
       <div class="grid-3">
         <div class="card">
-          <div class="card-badge">大規模生產能力</div>
-          <h4>38 台真空成型機</h4>
-          <p>擁有強大的產能規模與快速反應能力，能穩定承接大規模訂單並確保準時交貨。</p>
+          <div class="card-badge">
+            <span class="lang-zh">大規模生產能力</span><span class="lang-en">Mass Production Capacity</span>
+          </div>
+          <h3>
+            <span class="lang-zh">38 台真空成型機</span><span class="lang-en">38 Thermoforming Machines</span>
+          </h3>
+          <p>
+            <span class="lang-zh">擁有強大的產能規模與快速反應能力，能穩定承接大規模訂單並確保準時交貨。</span>
+            <span class="lang-en">High production scale and rapid response capability to consistently handle large-volume orders and ensure on-time delivery.</span>
+          </p>
         </div>
         <div class="card">
-          <div class="card-badge">高標準潔淨環境</div>
-          <h4>百萬級潔淨室</h4>
-          <p>建置高規格潔淨室進行環境監控，專為醫療器材與高精密光電包裝提供零污染生產。</p>
+          <div class="card-badge">
+            <span class="lang-zh">高標準潔淨環境</span><span class="lang-en">Cleanroom Standard</span>
+          </div>
+          <h3>
+            <span class="lang-zh">百萬級潔淨室</span><span class="lang-en">Class 1,000,000 Cleanroom</span>
+          </h3>
+          <p>
+            <span class="lang-zh">建置高規格潔淨室進行環境監控，專為醫療器材與高精密光電包裝提供零污染生產。</span>
+            <span class="lang-en">Controlled environment specifically designed for medical devices and high-precision optoelectronic packaging to ensure contaminant-free production.</span>
+          </p>
         </div>
         <div class="card">
-          <div class="card-badge">一站式整合服務</div>
-          <h4>獨立模具部門</h4>
-          <p>內部整合 CAD 圖面設計、CNC 切削、拋光與噴砂工藝，大幅縮短模具開發與試模週期。自主加工真空成型模、高週波模、瞬熱/ 植熱熱封模及治具</p>
+          <div class="card-badge">
+            <span class="lang-zh">一站式整合服務</span><span class="lang-en">One-Stop Solution</span>
+          </div>
+          <h3>
+            <span class="lang-zh">獨立模具部門</span><span class="lang-en">In-House Tooling Department</span>
+          </h3>
+          <p>
+            <span class="lang-zh">內部整合 CAD 圖面設計、CNC 切削、拋光與噴砂工藝，大幅縮短模具開發與試模週期。自主加工真空成型模、高週波模、瞬熱/ 植熱熱封模及治具。</span>
+            <span class="lang-en">Integrating CAD design, CNC machining, polishing, and sandblasting. In-house fabrication of thermoforming molds, high-frequency molds, heat-sealing molds, and fixtures to shorten development lead times.</span>
+          </p>
         </div>
       </div>
 
-      <h3>核心產品範疇</h3>
+      <h2>
+        <span class="lang-zh">核心產品範疇</span><span class="lang-en">Core Product Line</span>
+      </h2>
       <div class="grid-2">
         <div class="card">
-          <h4>工業周轉與自動化 Tray 盤</h4>
-          <p>專為高科技電子、光電及自動化設備設計，包含抗靜電（ESD）Tray、導電盤、交叉/同向堆疊工作盤與防塵保護蓋。</p>
+          <h3>
+            <span class="lang-zh">工業周轉與自動化 Tray 盤</span><span class="lang-en">Industrial Transport & Automation Trays</span>
+          </h3>
+          <p>
+            <span class="lang-zh">專為高科技電子、光電及自動化設備設計，包含抗靜電（ESD）Tray、導電盤、交叉/同向堆疊工作盤與防塵保護蓋。</span>
+            <span class="lang-en">Engineered for high-tech electronics, optoelectronics, and automated lines, including Anti-Static (ESD) trays, conductive trays, stackable working trays, and protective covers.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>賣場展示與消費性包裝</h4>
-          <p>對折盒、三折盒、雙泡殼、熱封/插卡泡殼、植絨盒與手工盒，兼具產品保護與優秀賣相，完美提升賣場展示效果。</p>
+          <h3>
+            <span class="lang-zh">賣場展示與消費性包裝</span><span class="lang-en">Retail Display & Consumer Packaging</span>
+          </h3>
+          <p>
+            <span class="lang-zh">對折盒、三折盒、雙泡殼、熱封/插卡泡殼、植絨盒與手工盒，兼具產品保護與優秀賣相，完美提升賣場展示效果。</span>
+            <span class="lang-en">Clamshells, tri-fold blisters, heat-seal blisters, slide card blisters, flocked trays, and clear plastic boxes to enhance product presentation and protection.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>模具及治具開發</h4>
-          <p>鋁合金、代木、電木、EVA、泡棉等材料加工</p>
+          <h3>
+            <span class="lang-zh">模具及治具開發</span><span class="lang-en">Mold & Fixture Tooling</span>
+          </h3>
+          <p>
+            <span class="lang-zh">鋁合金、代木、電木、EVA、泡棉等材料加工。</span>
+            <span class="lang-en">Precision machining of aluminum alloy, tooling board, bakelite, EVA, and foam materials.</span>
+          </p>
         </div>
       </div>
     </section>
 
     <!-- 2. 關於漢益 (About Us) -->
     <section id="about" class="page-section">
-      <div class="breadcrumb"><a onclick="switchTab('home')">首頁</a> / 關於漢益</div>
-      <h2>關於漢益塑膠實業</h2>
-      <p>漢益塑膠實業股份有限公司創立於 1984 年，深耕真空成型與塑膠加工領域逾四十載。自成立以來，我們始終秉持「專業與誠信」的經營理念，持續提升產品品質與服務實力，深受海內外市場與指標客戶的長期信賴。公司全面導入 ISO 9001 品質管理制度，建立完善的品質控管流程，確保持續穩健成長與高效能的產能表現。</p>
+      <div class="breadcrumb">
+        <a onclick="switchTab('home')"><span class="lang-zh">首頁</span><span class="lang-en">Home</span></a> / 
+        <span class="lang-zh">關於漢益</span><span class="lang-en">About Us</span>
+      </div>
+      <h1>
+        <span class="lang-zh">關於漢益塑膠實業</span><span class="lang-en">About Han Yih Plastics</span>
+      </h1>
+      <p>
+        <span class="lang-zh">漢益塑膠實業股份有限公司創立於 1984 年，深耕真空成型與塑膠加工領域逾四十載。自成立以來，我們始終秉持「專業與誠信」的經營理念，持續提升產品品質與服務實力，深受海內外市場與指標客戶的長期信賴。公司全面導入 ISO 9001 品質管理制度，建立完善的品質控管流程，確保持續穩健成長與高效能的產能表現。</span>
+        <span class="lang-en">Founded in 1984, Han Yih Plastics Co., Ltd. has specialized in thermoforming and plastic processing for over 40 years. Upholding the principles of "Professionalism and Integrity," we continuously enhance our quality standards and manufacturing capabilities. Certified with ISO 9001:2015, we enforce strict quality control to guarantee exceptional performance and reliable delivery for global clients.</span>
+      </p>
       
-      <h3>品質與環境認證</h3>
+      <h2>
+        <span class="lang-zh">品質與環境認證</span><span class="lang-en">Quality & Certification</span>
+      </h2>
       <div class="card" style="background:#eef6fc; border-left:5px solid var(--primary);">
-        <h4>ISO 9001:2015 國際品質管理認證</h4>
-        <p>漢益全廠通過 ISO 9001:2015 品質管理系統驗證，從原物料進料檢驗、真空成型加工、後製程沖切到最終成品檢驗，皆落實嚴格的品質監控。</p>
+        <h3>
+          <span class="lang-zh">ISO 9001:2015 國際品質管理認證</span><span class="lang-en">ISO 9001:2015 Quality Management System Certification</span>
+        </h3>
+        <p>
+          <span class="lang-zh">漢益全廠通過 ISO 9001:2015 品質管理系統驗證，從原物料進料檢驗、真空成型加工、後製程沖切到最終成品檢驗，皆落實嚴格的品質監控。</span>
+          <span class="lang-en">Han Yih is fully certified under ISO 9001:2015. Strict quality inspection is executed at every stage, from incoming raw material verification and thermoforming to die-cutting and final package delivery.</span>
+        </p>
       </div>
 
-      <h3>公司發展沿革</h3>
+      <h2>
+        <span class="lang-zh">公司發展沿革</span><span class="lang-en">Company History Timeline</span>
+      </h2>
       <div class="timeline">
-        <div class="timeline-item"><div class="timeline-year">1984</div><p>創立嘉元有限公司，資本額新台幣 50 萬元。</p></div>
-        <div class="timeline-item"><div class="timeline-year">1989</div><p>更名為漢益塑膠有限公司，增資至 500 萬元，A 棟新廠落成。</p></div>
-        <div class="timeline-item"><div class="timeline-year">1990</div><p>進入手工具市場，陸續爭取到台灣工具界五大廠訂單，成為業界主要供應商之一。</p></div>
-        <div class="timeline-item"><div class="timeline-year">1998</div><p>跨足高科技電子產業包裝領域。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2003</div><p>B 棟（二層）廠房擴建完成，大幅提升產能。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2015</div><p>C 棟（三層）廠房擴建完成。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2017</div><p>增資至 2000 萬元，新建倉庫並引進全新設備。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2022</div><p>D 棟擴建完成，設立百萬級潔淨室進行環境監控管理，確保頂級生產品質；同年更名為「漢益塑膠實業股份有限公司」。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2024</div><p>成立專業模具部門，專注於鋁合金、電木、泡棉等材料加工，提供高品質模具與治具之設計製造。</p></div>
-        <div class="timeline-item"><div class="timeline-year">2025</div><p>引進高性能進口成型機，全面提升生產效率與產品品質，提供客戶更完善的升級服務。</p></div>
+        <div class="timeline-item">
+          <div class="timeline-year">1984</div>
+          <p><span class="lang-zh">創立嘉元有限公司，資本額新台幣 50 萬元。</span><span class="lang-en">Established Jiayuan Co., Ltd. with a capital of NT$ 500,000.
+
+.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1989</div>
+          <p><span class="lang-zh">更名為漢益塑膠有限公司，增資至 500 萬元，A 棟新廠落成。</span><span class="lang-en">Renamed to Han Yih Plastics Co., Ltd., increased capital to 5 Million NTD, and completed Building A plant.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1990</div>
+          <p><span class="lang-zh">進入手工具市場，陸續爭取到台灣工具界五大廠訂單，成為業界主要供應商之一。</span><span class="lang-en">Entered the hand tool packaging market and became a key supplier to Taiwan's top hand tool manufacturers.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1998</div>
+          <p><span class="lang-zh">跨足高科技電子產業包裝領域。</span><span class="lang-en">Expanded business into high-tech electronic component packaging.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2003</div>
+          <p><span class="lang-zh">B 棟（二層）廠房擴建完成，大幅提升產能。</span><span class="lang-en">Completed Building B expansion to significantly boost production capacity.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2015</div>
+          <p><span class="lang-zh">C 棟（三層）廠房擴建完成。</span><span class="lang-en">Completed 3-story Building C expansion.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2017</div>
+          <p><span class="lang-zh">增資至 2000 萬元，新建倉庫並引進全新設備。</span><span class="lang-en">Capital increased to 20 Million NTD; built a new warehouse and upgraded machinery.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <p><span class="lang-zh">D 棟擴建完成，設立百萬級潔淨室進行環境監控管理，確保頂級生產品質；同年更名為「漢益塑膠實業股份有限公司」。</span><span class="lang-en">Completed Building D expansion and built a Class 1,000,000 cleanroom for high-precision manufacturing.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <p><span class="lang-zh">成立專業模具部門，專注於鋁合金、電木、泡棉等材料加工，提供高品質模具與治具之設計製造。</span><span class="lang-en">Established an in-house Tooling & Mold Department for aluminum, bakelite, and foam processing.</span></p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <p><span class="lang-zh">引進高性能進口成型機，全面提升生產效率與產品品質，提供客戶更完善的升級服務。</span><span class="lang-en">Imported high-performance thermoforming machines to elevate overall production efficiency and quality.</span></p>
+        </div>
       </div>
     </section>
 
     <!-- 3. 產品與應用 (Products) -->
     <section id="products" class="page-section">
-      <div class="breadcrumb"><a onclick="switchTab('home')">首頁</a> / 產品與應用</div>
-      <h2>真空成型泡殼與 Tray 盤產品總覽</h2>
-      <p>真空成型泡殼名稱繁多（如塑膠盒、Tray盤、脆盤、泡殼、內襯、真空成型盒），依使用場景可分為「工廠廠內周轉」與「賣場零售包裝」兩大類：</p>
+      <div class="breadcrumb">
+        <a onclick="switchTab('home')"><span class="lang-zh">首頁</span><span class="lang-en">Home</span></a> / 
+        <span class="lang-zh">產品與應用</span><span class="lang-en">Products & Applications</span>
+      </div>
+      <h1>
+        <span class="lang-zh">真空成型泡殼與 Tray 盤產品總覽</span><span class="lang-en">Thermoformed Blisters & Trays Overview</span>
+      </h1>
+      <p>
+        <span class="lang-zh">真空成型泡殼名稱繁多（如塑膠盒、Tray盤、脆盤、泡殼、內襯、真空成型盒），依使用場景可分為「工廠廠內周轉」與「賣場零售包裝」兩大類：</span>
+        <span class="lang-en">Thermoformed plastic packaging (trays, blisters, clamshells, inserts) is categorized into two main applications: Industrial Transport & In-Plant Trays and Retail Display Packaging.</span>
+      </p>
 
-      <h3>一、 工廠廠內與廠際周轉類 (工業與電子類)</h3>
-      <p>此類產品主要用於保護精密零件在製程與運輸過程中不撞傷，或配合自動化設備進行作業：</p>
+      <h2>
+        <span class="lang-zh">一、 工廠廠內與廠際周轉類 (工業與電子類)</span><span class="lang-en">1. In-Plant & Inter-Factory Transport Trays (Industrial & Electronics)</span>
+      </h2>
+      <p>
+        <span class="lang-zh">此類產品主要用於保護精密零件在製程與運輸過程中不撞傷，或配合自動化設備進行作業：</span>
+        <span class="lang-en">Designed to protect delicate parts from damage during transport and seamlessly interface with automated assembly lines:</span>
+      </p>
       <div class="grid-3">
         <div class="card">
-          <h4>抗靜電/導電 Tray 盤</h4>
-          <p>選用 ESD 抗靜電或導電級材料（PS, ABS, PET），精準控制表面電阻，防止靜電放電損害靜電敏感電子元件 (ESD-sensitive devices)。使用時通常會旋轉 180 度交叉堆疊。</p>
+          <h3>
+            <span class="lang-zh">抗靜電/導電 Tray 盤</span><span class="lang-en">Anti-Static (ESD) / Conductive Trays</span>
+          </h3>
+          <p>
+            <span class="lang-zh">選用 ESD 抗靜電或導電級材料（PS, ABS, PET），精準控制表面電阻，防止靜電放電損害靜電敏感電子元件 (ESD-sensitive devices)。使用時通常會旋轉 180 度交叉堆疊。</span>
+            <span class="lang-en">Made from anti-static or conductive PS, ABS, or PET materials. Controls surface resistivity to protect ESD-sensitive components. Features 180-degree stackable design.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>自動化 Tray 盤</h4>
-          <p>高精度尺寸控制，專為配合客戶廠內的自動化機械手臂與組裝設備設計，具備同向堆疊定位功能。</p>
+          <h3>
+            <span class="lang-zh">自動化 Tray 盤</span><span class="lang-en">Automated Line Trays</span>
+          </h3>
+          <p>
+            <span class="lang-zh">高精度尺寸控制，專為配合客戶廠內的自動化機械手臂與組裝設備設計，具備同向堆疊定位功能。</span>
+            <span class="lang-en">Precision dimensions tailored for robotic arms and automated pick-and-place manufacturing systems.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>精密零件保護蓋</h4>
-          <p>用於烤漆、電鍍、陽極或精密加工後的零件表面防塵、防刮與防撞保護。</p>
+          <h3>
+            <span class="lang-zh">精密零件保護蓋</span><span class="lang-en">Protective Covers for Precision Parts</span>
+          </h3>
+          <p>
+            <span class="lang-zh">用於烤漆、電鍍、陽極或精密加工後的零件表面防塵、防刮與防撞保護。</span>
+            <span class="lang-en">Provides dustproof, scratch-resistant, and impact protection for painted, plated, or anodized parts.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>插式泡殼 / 對翻盒</h4>
-          <p>插式設計適用於薄片狀產品（如玻璃或 PCB 板）；對翻盒則專為製程中與相對應治具快速翻轉轉移產品而設計。</p>
+          <h3>
+            <span class="lang-zh">插式泡殼 / 對翻盒</span><span class="lang-en">Slot-in Blisters / Turnover Trays</span>
+          </h3>
+          <p>
+            <span class="lang-zh">插式設計適用於薄片狀產品（如玻璃或 PCB 板）；對翻盒則專為製程中與相對應治具快速翻轉轉移產品而設計。</span>
+            <span class="lang-en">Slot-in designs for thin substrate glass or PCBs; turnover trays for quick flipping and transferring of workpieces.</span>
+          </p>
         </div>
       </div>
 
-      <h3>二、 賣場零售展示包裝類</h3>
-      <p>此類包裝注重產品保護與賣相，常具備吊掛孔（蝴蝶洞/圓洞）以供賣場展示：</p>
+      <h2>
+        <span class="lang-zh">二、 賣場零售展示包裝類</span><span class="lang-en">2. Retail Display Packaging</span>
+      </h2>
+      <p>
+        <span class="lang-zh">此類包裝注重產品保護與賣相，常具備吊掛孔（蝴蝶洞/圓洞）以供賣場展示：</span>
+        <span class="lang-en">Enhances shelf presentation while ensuring security, featuring hang holes (sombrero / round punch) for displays:</span>
+      </p>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>包裝類型</th>
-              <th>結構與封口方式</th>
-              <th>典型應用與特色</th>
+              <th><span class="lang-zh">包裝類型</span><span class="lang-en">Packaging Type</span></th>
+              <th><span class="lang-zh">結構與封口方式</span><span class="lang-en">Structure & Sealing Method</span></th>
+              <th><span class="lang-zh">典型應用與特色</span><span class="lang-en">Typical Applications & Features</span></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>對折盒 / 三折盒 / 雙面盒</b></td>
-              <td>可摺疊，使用卡扣、釘書機或高週波封口，上方打吊掛孔。</td>
-              <td>五金工具、消費性產品賣場吊掛展示。</td>
+              <td><b><span class="lang-zh">對折盒 / 三折盒 / 雙面盒</span><span class="lang-en">Clamshell / Tri-fold Packaging</span></b></td>
+              <td><span class="lang-zh">可摺疊，使用卡扣、釘書機或高週波封口，上方打吊掛孔。</span><span class="lang-en">Foldable, button-latched, stapled, or high-frequency sealed with hang holes.</span></td>
+              <td><span class="lang-zh">五金工具、消費性產品賣場吊掛展示。</span><span class="lang-en">Hardware, tools, and consumer products hanging display.</span></td>
             </tr>
             <tr>
-              <td><b>熱封類 / 雙泡殼 / 蚌殼</b></td>
-              <td>塑膠與塑膠或塑膠與紙卡透過熱封機/高週波機相互黏合，需工具剪開。</td>
-              <td>高防盜性需求商品、高質感零售產品。</td>
+              <td><b><span class="lang-zh">熱封類 / 雙泡殼 / 蚌殼</span><span class="lang-en">Heat-Seal / Double Blister</span></b></td>
+              <td><span class="lang-zh">塑膠與塑膠或塑膠與紙卡透過熱封機/高週波機相互黏合，需工具剪開。</span><span class="lang-en">Plastic-to-plastic or plastic-to-card sealing via heat press or high-frequency.</span></td>
+              <td><span class="lang-zh">高防盜性需求商品、高質感零售產品。</span><span class="lang-en">Anti-theft required goods, premium retail products.</span></td>
             </tr>
             <tr>
-              <td><b>插卡泡殼 / 折邊泡殼</b></td>
-              <td>將泡殼 2 至 4 邊折彎 180 度，塞入印刷紙卡後以膠帶或釘書機固定。</td>
-              <td>可輕鬆更換紙卡資訊，適合各式消費品包裝。</td>
+              <td><b><span class="lang-zh">插卡泡殼 / 折邊泡殼</span><span class="lang-en">Slide Card Blister / Folded-edge Blister</span></b></td>
+              <td><span class="lang-zh">將泡殼 2 至 4 邊折彎 180 度，塞入印刷紙卡後以膠帶或釘書機固定。</span><span class="lang-en">2 to 4 edges folded 180 degrees to slide in printed backing cards.</span></td>
+              <td><span class="lang-zh">可輕鬆更換紙卡資訊，適合各式消費品包裝。</span><span class="lang-en">Easy to switch card info; cost-effective consumer packaging.</span></td>
             </tr>
             <tr>
-              <td><b>浪板 / 展示盒 / 底蓋盒</b></td>
-              <td>放入盒內或使用底蓋完整包覆。</td>
-              <td>展示架展示、高檔精緻禮品盒。</td>
+              <td><b><span class="lang-zh">浪板 / 展示盒 / 底蓋盒</span><span class="lang-en">Base & Lid Box / Display Inserts</span></b></td>
+              <td><span class="lang-zh">放入盒內或使用底蓋完整包覆。</span><span class="lang-en">Inserts fitted inside outer boxes or covered by lid/base sets.</span></td>
+              <td><span class="lang-zh">展示架展示、高檔精緻禮品盒。</span><span class="lang-en">Store displays, high-end gift box inserts.</span></td>
             </tr>
             <tr>
-              <td><b>植絨泡殼</b></td>
-              <td>泡殼表面植上一層絨布，質感典雅高級。</td>
-              <td>珠寶首飾、昂貴禮品與高階儀器內襯。</td>
+              <td><b><span class="lang-zh">植絨泡殼</span><span class="lang-en">Flocked Blister Tray</span></b></td>
+              <td><span class="lang-zh">泡殼表面植上一層絨布，質感典雅高級。</span><span class="lang-en">Velvet-coated plastic surface providing an elegant texture.</span></td>
+              <td><span class="lang-zh">珠寶首飾、昂貴禮品與高階儀器內襯。</span><span class="lang-en">Jewelry, luxury gift boxes, precision instrument linings.</span></td>
             </tr>
             <tr>
-              <td><b>手工折盒 (刀模折盒)</b></td>
-              <td>不經真空成型，直接以板材經刀模裁切、壓線折彎、超音波熔接或膠合。</td>
-              <td>透明外包裝盒、方形透明塑膠盒。</td>
+              <td><b><span class="lang-zh">手工折盒 (刀模折盒)</span><span class="lang-en">Clear Plastic Folding Box</span></b></td>
+              <td><span class="lang-zh">不經真空成型，直接以板材經刀模裁切、壓線折彎、超音波熔接或膠合。</span><span class="lang-en">Die-cut and creased sheet folding, ultrasonic or glued assembly.</span></td>
+              <td><span class="lang-zh">透明外包裝盒、方形透明塑膠盒。</span><span class="lang-en">Transparent gift boxes, square plastic folding boxes.</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- ------------------------------------------------------------- -->
-    <!-- 新增：4. 產品圖庫區塊 (Product Gallery)                         -->
-    <!-- ------------------------------------------------------------- -->
+    <!-- 4. 產品圖庫區塊 (Product Gallery) -->
     <section id="gallery" class="page-section">
-      <div class="breadcrumb"><a onclick="switchTab('home')">首頁</a> / 產品圖庫</div>
-      <h2>漢益產品圖庫與展示</h2>
-      <p>以下為漢益塑膠生產之各類真空成型盒、Tray盤、泡殼與模具治具實品照片。您可點擊分類按鈕快速篩選：</p>
+      <div class="breadcrumb">
+        <a onclick="switchTab('home')"><span class="lang-zh">首頁</span><span class="lang-en">Home</span></a> / 
+        <span class="lang-zh">產品圖庫</span><span class="lang-en">Gallery</span>
+      </div>
+      <h1>
+        <span class="lang-zh">漢益產品圖庫與展示</span><span class="lang-en">Product Gallery & Showroom</span>
+      </h1>
+      <p>
+        <span class="lang-zh">以下為漢益塑膠生產之各類真空成型盒、Tray盤、泡殼與模具治具實品照片。您可點擊分類按鈕快速篩選：</span>
+        <span class="lang-en">Explore photos of our custom thermoformed trays, blisters, clamshells, and tooling molds. Click categories to filter:</span>
+      </p>
 
       <!-- 分類篩選按鈕列 -->
       <div class="filter-container">
-        <button class="filter-btn active" onclick="filterGallery('all', this)">全部產品 All</button>
-        <button class="filter-btn" onclick="filterGallery('tray', this)">工業 / 電子 Tray 盤</button>
-        <button class="filter-btn" onclick="filterGallery('blister', this)">賣場展示泡殼</button>
-        <button class="filter-btn" onclick="filterGallery('mold', this)">CNC 模具與治具</button>
-        <button class="filter-btn" onclick="filterGallery('other', this)">客製化包裝</button>
+        <button class="filter-btn active" onclick="filterGallery('all', this)">
+          <span class="lang-zh">全部產品 All</span><span class="lang-en">All Products</span>
+        </button>
+        <button class="filter-btn" onclick="filterGallery('tray', this)">
+          <span class="lang-zh">工業 / 電子 Tray 盤</span><span class="lang-en">Industrial / ESD Trays</span>
+        </button>
+        <button class="filter-btn" onclick="filterGallery('blister', this)">
+          <span class="lang-zh">賣場展示泡殼</span><span class="lang-en">Retail Blisters</span>
+        </button>
+        <button class="filter-btn" onclick="filterGallery('mold', this)">
+          <span class="lang-zh">CNC 模具與治具</span><span class="lang-en">CNC Molds & Fixtures</span>
+        </button>
+        <button class="filter-btn" onclick="filterGallery('other', this)">
+          <span class="lang-zh">客製化包裝</span><span class="lang-en">Custom Packaging</span>
+        </button>
       </div>
 
-      <!-- 相片顯示網格 (預留位置) -->
+      <!-- 相片顯示網格 -->
       <div class="gallery-grid">
 
-        <!-- 照片項目 1 (預留範例) -->
-        <!-- 修改說明：
-             1. data-category 改成：tray (Tray盤)、blister (泡殼)、mold (模具)、other (其他)
-             2. href="" 貼上您想連結的網址 (例如放大圖網址或產品頁)
-             3. src="" 貼上您的照片檔案連結或路徑
-             4. alt="" 填寫圖片說明，有助於 SEO
-        -->
         <div class="gallery-card" data-category="tray">
-          <a href="ZL1P2626.jpg" target="_blank">
+          <a href="Anti-Static PS Tray.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="ZL1P2626.jpg" alt="抗靜電 PS Tray 盤">
+              <img src="Anti-Static PS Tray.jpg" alt="抗靜電 PS Tray 盤 / Anti-Static PS Tray">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">工業 / 電子 Tray 盤</span>
-              <div class="gallery-title">抗靜電、導電Tray 盤</div>
-              <p class="gallery-desc">適用於高科技IC元件、晶片防靜電運輸周轉。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">工業 / 電子 Tray 盤</span><span class="lang-en">Industrial / ESD Trays</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">抗靜電、導電Tray 盤</span><span class="lang-en">Anti-Static / Conductive Tray</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">適用於高科技IC元件、晶片防靜電運輸周轉。</span>
+                <span class="lang-en">Ideal for IC components and semiconductor anti-static transportation.</span>
+              </p>
             </div>
           </a>
         </div>
+
         <div class="gallery-card" data-category="tray">
-          <a href="ZL1P2611.jpg" target="_blank">
+          <a href="Anti-Static PS Tray2.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="ZL1P2611.jpg" alt="抗靜電 PS Tray 盤">
+              <img src="Anti-Static PS Tray2.jpg" alt="抗靜電 PS Tray 盤 / Anti-Static PS Tray">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">工業 / 電子 Tray 盤</span>
-              <div class="gallery-title">抗靜電、導電Tray 盤</div>
-              <p class="gallery-desc">適用於高科技IC元件、晶片防靜電運輸周轉。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">工業 / 電子 Tray 盤</span><span class="lang-en">Industrial / ESD Trays</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">抗靜電、導電Tray 盤</span><span class="lang-en">ESD Electronics Tray</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">適用於高科技IC元件、晶片防靜電運輸周轉。</span>
+                <span class="lang-en">Precision trays engineered for sensitive electronic parts protection.</span>
+              </p>
             </div>
           </a>
         </div>
-        <!-- 照片項目 2 (預留範例) -->
+
         <div class="gallery-card" data-category="blister">
           <a href="tool-02.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="tool-02.jpg" alt="五金工具對折泡殼">
+              <img src="tool-02.jpg" alt="五金工具對折泡殼 / Tool Clamshell Packaging">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">賣場展示泡殼</span>
-              <div class="gallery-title">五金工具對折、插卡泡殼</div>
-              <p class="gallery-desc">高透明 PET、PVC 材質，附蝴蝶吊孔，適合賣場展示。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">賣場展示泡殼</span><span class="lang-en">Retail Blisters</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">五金工具對折、插卡泡殼</span><span class="lang-en">Hardware Tool Clamshell</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">高透明 PET、PVC 材質，附蝴蝶吊孔，適合賣場展示。</span>
+                <span class="lang-en">High transparency PET/PVC with sombrero hang holes for retail display.</span>
+              </p>
             </div>
           </a>
         </div>
+
         <div class="gallery-card" data-category="blister">
           <a href="雙泡殼.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="雙泡殼.jpg" alt="五金工具對折泡殼">
+              <img src="雙泡殼.jpg" alt="雙泡殼 / Double Blister">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">賣場展示泡殼</span>
-              <div class="gallery-title">五金工具對折、插卡泡殼</div>
-              <p class="gallery-desc">高透明 PET、PVC 材質，附蝴蝶吊孔，適合賣場展示。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">賣場展示泡殼</span><span class="lang-en">Retail Blisters</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">雙泡殼與熱封包裝</span><span class="lang-en">Double Blister Packaging</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">高防盜性需求商品，完整包覆提升賣相。</span>
+                <span class="lang-en">Anti-theft retail packaging with sealed edges for maximum protection.</span>
+              </p>
             </div>
           </a>
         </div>
+
         <div class="gallery-card" data-category="blister">
           <a href="手工盒.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="手工盒.jpg" alt="五金工具對折泡殼">
+              <img src="手工盒.jpg" alt="塑膠手工盒 / Clear Folding Box">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">塑膠手工盒</span>
-              <div class="gallery-title">化妝品手工盒，吊牌可印刷</div>
-              <p class="gallery-desc">PET、PP 材質，附蝴蝶吊孔，適合賣場展示。</p>
-            </div>
-          </a>
-        </div>
-        <!-- 照片項目 3 (預留範例) -->
-        <div class="gallery-card" data-category="mold">
-          <a href="515440119_24195314380065004_6517100652779870581_n.jpg" target="_blank">
-            <div class="gallery-img-wrapper">
-              <img src="515440119_24195314380065004_6517100652779870581_n.jpg" alt="CNC 鋁合金真空成型模具">
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-category-tag">CNC 模具與治具</span>
-              <div class="gallery-title">CNC 鋁合金精密模具</div>
-              <p class="gallery-desc">自主 CNC 雕刻加工，尺寸精準，風路設計完善。</p>
-            </div>
-          </a>
-        </div>
-		<div class="gallery-card" data-category="mold">
-          <a href="heat.jpg" target="_blank">
-            <div class="gallery-img-wrapper">
-              <img src="heat.jpg" alt="熱封模具">
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-category-tag">CNC 模具與治具</span>
-              <div class="gallery-title">熱封模具</div>
-              <p class="gallery-desc">用於將材料加熱後進行熱壓封合</p>
-            </div>
-          </a>
-        </div>
-		<div class="gallery-card" data-category="mold">
-          <a href="dc6a34cddcdc355994851dd7b6faf2ee_XL.jpg" target="_blank">
-            <div class="gallery-img-wrapper">
-              <img src="dc6a34cddcdc355994851dd7b6faf2ee_XL.jpg" alt="代木/電木製具">
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-category-tag">CNC 模具與治具</span>
-              <div class="gallery-title">代木/電木製具</div>
-              <p class="gallery-desc">用來定位、固定工件，或協助加工／組裝</p>
-            </div>
-          </a>
-        </div>
-		<div class="gallery-card" data-category="mold">
-          <a href="EVA.jpg" target="_blank">
-            <div class="gallery-img-wrapper">
-              <img src="EVA.jpg" alt="EVA">
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-category-tag">CNC 模具與治具</span>
-              <div class="gallery-title">各式EVA設計，高硬度可以切割及CNC</div>
-              <p class="gallery-desc">藝術品、固定保護工件、工具擺放</p>
-            </div>
-          </a>
-        </div>
-        <!-- 照片項目 4 (預留範例) -->
-        <div class="gallery-card" data-category="tray">
-          <a href="same stack.jpg" target="_blank">
-            <div class="gallery-img-wrapper">
-              <img src="same stack.jpg" alt="自動化手臂 Stack Tray">
-            </div>
-            <div class="gallery-info">
-              <span class="gallery-category-tag">工業 / 電子 Tray 盤</span>
-              <div class="gallery-title">自動化手臂堆疊 Tray</div>
-              <p class="gallery-desc">同向堆疊與精確定位，配合廠內機械手臂作業。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">塑膠手工盒</span><span class="lang-en">Clear Folding Box</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">化妝品與禮品透明折盒</span><span class="lang-en">Cosmetic Clear Folding Box</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">PET、PP 材質，附蝴蝶吊孔，可印製品牌標籤。</span>
+                <span class="lang-en">PET/PP clear folding boxes with printable tags for cosmetics.</span>
+              </p>
             </div>
           </a>
         </div>
 
-        <!-- 照片項目 5 (預留範例) -->
+        <div class="gallery-card" data-category="mold">
+          <a href="CNC Aluminum Mold.jpg" target="_blank">
+            <div class="gallery-img-wrapper">
+              <img src="CNC Aluminum Mold.jpg" alt="CNC 鋁合金真空成型模具 / CNC Aluminum Mold">
+            </div>
+            <div class="gallery-info">
+              <span class="gallery-category-tag">
+                <span class="lang-zh">CNC 模具與治具</span><span class="lang-en">CNC Molds & Fixtures</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">CNC 鋁合金精密模具</span><span class="lang-en">CNC Machined Aluminum Mold</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">自主 CNC 雕刻加工，尺寸精準，風路設計完善。</span>
+                <span class="lang-en">In-house CNC engraved aluminum mold with optimized vacuum channels.</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="gallery-card" data-category="mold">
+          <a href="Heat Sealing Tooling.jpg" target="_blank">
+            <div class="gallery-img-wrapper">
+              <img src="Heat Sealing Tooling.jpg" alt="熱封模具 / Heat Sealing Tooling">
+            </div>
+            <div class="gallery-info">
+              <span class="gallery-category-tag">
+                <span class="lang-zh">CNC 模具與治具</span><span class="lang-en">CNC Molds & Fixtures</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">熱封與高週波模具</span><span class="lang-en">Heat-Sealing Tooling</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">用於將材料加熱後進行熱壓封合。</span>
+                <span class="lang-en">Precision heating tooling for blister and card press sealing.</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="gallery-card" data-category="mold">
+          <a href="Bakelite & Tooling Board Fixtures.jpg" target="_blank">
+            <div class="gallery-img-wrapper">
+              <img src="Bakelite & Tooling Board Fixtures.jpg" alt="代木/電木治具 / Bakelite & Tooling Board Fixtures">
+            </div>
+            <div class="gallery-info">
+              <span class="gallery-category-tag">
+                <span class="lang-zh">CNC 模具與治具</span><span class="lang-en">CNC Molds & Fixtures</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">代木/電木客製化治具</span><span class="lang-en">Bakelite & Tooling Board Fixtures</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">用來定位、固定工件，或協助加工／組裝。</span>
+                <span class="lang-en">Custom assembly fixtures for positioning and work-holding.</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="gallery-card" data-category="mold">
+          <a href="EVA.jpg" target="_blank">
+            <div class="gallery-img-wrapper">
+              <img src="EVA.jpg" alt="EVA 內襯與加工 / Custom EVA Foam Inserts">
+            </div>
+            <div class="gallery-info">
+              <span class="gallery-category-tag">
+                <span class="lang-zh">CNC 模具與治具</span><span class="lang-en">CNC Molds & Fixtures</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">高硬度 EVA 雕刻內襯</span><span class="lang-en">Custom CNC EVA Foam Inserts</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">藝術品、固定保護工件、工具擺放。</span>
+                <span class="lang-en">High-density EVA foam CNC routed for tool and equipment protection.</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="gallery-card" data-category="tray">
+          <a href="same stack tray.jpg" target="_blank">
+            <div class="gallery-img-wrapper">
+              <img src="same stack tray.jpg" alt="自動化手臂 Stack Tray / Automation Stackable Tray">
+            </div>
+            <div class="gallery-info">
+              <span class="gallery-category-tag">
+                <span class="lang-zh">工業 / 電子 Tray 盤</span><span class="lang-en">Industrial / ESD Trays</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">自動化手臂堆疊 Tray</span><span class="lang-en">Automation Robotic Arm Tray</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">同向堆疊與精確定位，配合廠內機械手臂作業。</span>
+                <span class="lang-en">Same-direction stackable design tailored for robotic arm automation.</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
         <div class="gallery-card" data-category="blister">
           <a href="tool-tray.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="tool-tray.jpg" alt="工具內襯">
+              <img src="tool-tray.jpg" alt="工具內襯 / Hand Tool Inner Inserts">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">工具內襯</span>
-              <div class="gallery-title">PS內襯可植絨及印刷</div>
-              <p class="gallery-desc">可放於盒內，整齊擺放提升產品整體賣相。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">賣場展示泡殼</span><span class="lang-en">Retail Blisters</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">PS工具內襯 (可植絨與印刷)</span><span class="lang-en">PS Tool Inserts (Flocked/Printed)</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">可放於盒內，整齊擺放提升產品整體賣相。</span>
+                <span class="lang-en">Neat organizing inserts for blow molded tool cases or steel boxes.</span>
+              </p>
             </div>
           </a>
         </div>
+
         <div class="gallery-card" data-category="blister">
-          <a href="ZL1P2754.jpg" target="_blank">
+          <a href="Tool tray2.jpg" target="_blank">
             <div class="gallery-img-wrapper">
-              <img src="ZL1P2754.jpg" alt="工具內襯">
+              <img src="Tool tray2.jpg" alt="工具內襯 / Tool Inserts">
             </div>
             <div class="gallery-info">
-              <span class="gallery-category-tag">工具內襯</span>
-              <div class="gallery-title">PS內襯可植絨及印刷</div>
-              <p class="gallery-desc">可放於盒內，整齊擺放提升產品整體賣相。</p>
+              <span class="gallery-category-tag">
+                <span class="lang-zh">賣場展示泡殼</span><span class="lang-en">Retail Blisters</span>
+              </span>
+              <div class="gallery-title">
+                <span class="lang-zh">客製化工具內襯 Tray</span><span class="lang-en">Custom Tool Tray Inserts</span>
+              </div>
+              <p class="gallery-desc">
+                <span class="lang-zh">可放於盒內，整齊擺放提升產品整體賣相。</span>
+                <span class="lang-en">Custom molded pockets to secure various hand tools firmly.</span>
+              </p>
             </div>
           </a>
         </div>
-
-
-        <!-- 💡 您後續要新增更多照片，只需複製上方的 <div class="gallery-card">...</div> 貼在下面即可 -->
 
       </div>
     </section>
 
     <!-- 5. 真空成型與模具技術 (Technology & Molds) -->
     <section id="technology" class="page-section">
-      <div class="breadcrumb"><a onclick="switchTab('home')">首頁</a> / 真空成型與模具技術</div>
-      <h2>真空成型原理與技術解析</h2>
+      <div class="breadcrumb">
+        <a onclick="switchTab('home')"><span class="lang-zh">首頁</span><span class="lang-en">Home</span></a> / 
+        <span class="lang-zh">真空成型與模具技術</span><span class="lang-en">Technology & Molds</span>
+      </div>
+      <h1>
+        <span class="lang-zh">真空成型原理與技術解析</span><span class="lang-en">Thermoforming Process & Mold Engineering</span>
+      </h1>
 
-      <h3>真空成型原理</h3>
-      <p>真空成型係將熱塑性塑膠板材或卷料加熱軟化後，將模具與材料間抽真空，利用大氣壓力使材料緊密服貼於模具表面，隨後經由風冷或水冷冷卻定型，最後吹氣脫模，即完成初步成型。</p>
-      <p>成型後需進行後加工及裁切，常見如：<b>沖床沖壓</b>（適用於立體造型邊緣）、<b>雷射刀模沖切</b>（裁切平面外框與蝴蝶洞）、<b>熱封/高週波黏合</b>、<b>網版印刷</b>與<b>折邊加工</b>。</p>
+      <h2>
+        <span class="lang-zh">真空成型原理</span><span class="lang-en">Thermoforming Process Principle</span>
+      </h2>
+      <p>
+        <span class="lang-zh">真空成型係將熱塑性塑膠板材或卷料加熱軟化後，將模具與材料間抽真空，利用大氣壓力使材料緊密服貼於模具表面，隨後經由風冷或水冷冷卻定型，最後吹氣脫模，即完成初步成型。</span>
+        <span class="lang-en">Thermoforming involves heating a thermoplastic sheet until pliable, then drawing a vacuum between the sheet and the mold so atmospheric pressure forces the sheet onto the mold surface. Once cooled by air or water, air is blown to release the finished part.</span>
+      </p>
+      <p>
+        <span class="lang-zh">成型後需進行後加工及裁切，常見如：<b>沖床沖壓</b>（適用於立體造型邊緣）、<b>雷射刀模沖切</b>（裁切平面外框與蝴蝶洞）、<b>熱封/高週波黏合</b>、<b>網版印刷</b>與<b>折邊加工</b>。</span>
+        <span class="lang-en">Post-processing options include hydraulic press trimming, steel rule die cutting, heat/high-frequency sealing, silk-screen printing, and edge folding.</span>
+      </p>
 
-      <h3>真空成型特性說明</h3>
+      <h2>
+        <span class="lang-zh">真空成型特性說明</span><span class="lang-en">Technical Characteristics</span>
+      </h2>
       <ul>
-        <li><b>厚度變化</b>：材料經拉伸後，各處厚度不均勻，拉伸高度越高之處壁厚越薄，最大厚度不超過原始板材厚度。</li>
-        <li><b>轉角 R 角</b>：受到材料覆蓋與拉伸限制，造型轉折處必然呈現 R 角，無法做到極致尖角。</li>
-        <li><b>開發成本優勢</b>：相較於射出成型模具，真空成型模具開發費用極低，特別適合中大量及客製化生產。</li>
+        <li>
+          <b><span class="lang-zh">厚度變化</span><span class="lang-en">Thickness Variation</span></b>：
+          <span class="lang-zh">材料經拉伸後，各處厚度不均勻，拉伸高度越高之處壁厚越薄，最大厚度不超過原始板材厚度。</span>
+          <span class="lang-en">Sheet stretching causes non-uniform wall thickness; deeper draws result in thinner walls.</span>
+        </li>
+        <li>
+          <b><span class="lang-zh">轉角 R 角</span><span class="lang-en">Corner Radius (R-Corner)</span></b>：
+          <span class="lang-zh">受到材料覆蓋與拉伸限制，造型轉折處必然呈現 R 角，無法做到極致尖角。</span>
+          <span class="lang-en">Material stretch constraints necessitate rounded corners rather than sharp 90-degree angles.</span>
+        </li>
+        <li>
+          <b><span class="lang-zh">開發成本優勢</span><span class="lang-en">Cost-Effective Tooling</span></b>：
+          <span class="lang-zh">相較於射出成型模具，真空成型模具開發費用極低，特別適合中大量及客製化生產。</span>
+          <span class="lang-en">Tooling costs are significantly lower than injection molds, making it ideal for medium-to-large custom runs.</span>
+        </li>
       </ul>
 
-      <h3>常用塑膠材質特性比較表</h3>
+      <h2>
+        <span class="lang-zh">常用塑膠材質特性比較表</span><span class="lang-en">Plastic Material Comparison Table</span>
+      </h2>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>材質名稱</th>
-              <th>回收編號</th>
-              <th>耐溫極限</th>
-              <th>特點與高週波適性</th>
-              <th>主要應用領域</th>
+              <th><span class="lang-zh">材質名稱</span><span class="lang-en">Material</span></th>
+              <th><span class="lang-zh">回收編號</span><span class="lang-en">RIC Code</span></th>
+              <th><span class="lang-zh">耐溫極限</span><span class="lang-en">Temp Limit</span></th>
+              <th><span class="lang-zh">特點與高週波適性</span><span class="lang-en">Features & Sealing</span></th>
+              <th><span class="lang-zh">主要應用領域</span><span class="lang-en">Primary Applications</span></th>
             </tr>
           </thead>
           <tbody>
@@ -583,76 +901,98 @@
               <td><b>PET</b></td>
               <td>1</td>
               <td>60°C</td>
-              <td>高透明。高週波需選用 PETG。具備食品、抗靜電、導電、醫療等級。</td>
-              <td>電子 Tray、食品盒、醫療包裝、賣場雙泡殼（逐步取代 PVC）、五金零件包裝、折邊泡殼、高週波泡殼。</td>
+              <td><span class="lang-zh">高透明。高週波需選用 PETG。具備食品、抗靜電、導電、醫療等級。</span><span class="lang-en">High transparency. Food grade, ESD anti-static, conductive, medical grades available.</span></td>
+              <td><span class="lang-zh">電子 Tray、食品盒、醫療包裝、賣場雙泡殼（逐步取代 PVC）、五金零件包裝、折邊泡殼、高週波泡殼。</span><span class="lang-en">Electronics trays, food boxes, medical packaging, clamshells, hardware packaging.</span></td>
             </tr>
             <tr>
               <td><b>PVC</b></td>
               <td>3</td>
               <td>60°C</td>
-              <td>高透明，可直接高週波。目前使用量漸減，多改由 PET 取代。</td>
-              <td>五金零件包裝、折邊泡殼、高週波泡殼。</td>
+              <td><span class="lang-zh">高透明，可直接高週波。目前使用量漸減，多改由 PET 取代。</span><span class="lang-en">High clarity, excellent high-frequency sealing. Gradually replaced by PET.</span></td>
+              <td><span class="lang-zh">五金零件包裝、折邊泡殼、高週波泡殼。</span><span class="lang-en">Hardware parts packaging, slide blisters, high-frequency sealed blisters.</span></td>
             </tr>
             <tr>
               <td><b>PP</b></td>
               <td>5</td>
               <td>120°C</td>
-              <td>乳白色（可調色），耐高溫可微波。可做抗靜電/導電等級。</td>
-              <td>食品容器、需高溫殺菌或耐熱之零件包裝盤。</td>
+              <td><span class="lang-zh">乳白色（可調色），耐高溫可微波。可做抗靜電/導電等級。</span><span class="lang-en">Translucent/colored, microwaveable, high heat resistance. ESD options available.</span></td>
+              <td><span class="lang-zh">食品容器、需高溫殺菌或耐熱之零件包裝盤。</span><span class="lang-en">Food containers, autoclavable medical trays, heat-resistant component trays.</span></td>
             </tr>
             <tr>
               <td><b>PS</b></td>
               <td>6</td>
               <td>80°C</td>
-              <td>常用黑色（可調色）。廣泛應用於工具五金及電子抗靜電與導電材料。</td>
-              <td>電子產業零件 Tray 盤、自動化工作盤、工具內襯。</td>
+              <td><span class="lang-zh">常用黑色（可調色）。廣泛應用於工具五金及電子抗靜電與導電材料。</span><span class="lang-en">Commonly black. Widely used for electronic ESD anti-static and conductive trays.</span></td>
+              <td><span class="lang-zh">電子產業零件 Tray 盤、自動化工作盤、工具內襯。</span><span class="lang-en">Electronic component trays, automated assembly trays, tool box inserts.</span></td>
             </tr>
             <tr>
               <td><b>ABS</b></td>
               <td>-</td>
               <td>85°C</td>
-              <td>特性與 PS 相近，但韌性與耐衝擊強度更強。支援防火等級與 ESD。</td>
-              <td>高強度電子周轉盤。</td>
+              <td><span class="lang-zh">特性與 PS 相近，但韌性與耐衝擊強度更強。支援防火等級與 ESD。</span><span class="lang-en">High impact resistance and toughness compared to PS. Flame-retardant and ESD options.</span></td>
+              <td><span class="lang-zh">高強度電子周轉盤。</span><span class="lang-en">Heavy-duty industrial transport trays, automotive parts carriers.</span></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>真空成型模具製造工藝</h3>
+      <h2>
+        <span class="lang-zh">真空成型模具製造工藝</span><span class="lang-en">Mold Tooling Technologies</span>
+      </h2>
       <div class="grid-2">
         <div class="card">
-          <h4>CNC 精密切削鋁模</h4>
-          <p>直接採用一整塊高品質鋁合金原料，透過 CNC 數值控制铣床直接切削成型。優點為尺寸精度極高、表面光滑、風路設計精細，適合高精度的電子 Tray 盤與醫療包裝模具。</p>
+          <h3>
+            <span class="lang-zh">CNC 精密切削鋁模</span><span class="lang-en">CNC Machined Aluminum Molds</span>
+          </h3>
+          <p>
+            <span class="lang-zh">直接採用一整塊高品質鋁合金原料，透過 CNC 數值控制铣床直接切削成型。優點為尺寸精度極高、表面光滑、風路設計精細，適合高精度的電子 Tray 盤與醫療包裝模具。</span>
+            <span class="lang-en">Directly carved from solid high-grade aluminum blocks via CNC milling. Provides superior dimensional accuracy, smooth surface finish, and optimized vacuum venting for precision electronics and medical trays.</span>
+          </p>
         </div>
         <div class="card">
-          <h4>翻砂鑄造鋁模</h4>
-          <p>先以木材、代木、石膏或電木製作原型模型，再進行翻砂鑄造成鋁模，最後經過拋光與建立風路。適合成本控管、造型較大或一般賣場包裝模具。</p>
+          <h3>
+            <span class="lang-zh">翻砂鑄造鋁模</span><span class="lang-en">Cast Aluminum Molds</span>
+          </h3>
+          <p>
+            <span class="lang-zh">先以木材、代木、石膏或電木製作原型模型，再進行翻砂鑄造成鋁模，最後經過拋光與建立風路。適合成本控管、造型較大或一般賣場包裝模具。</span>
+            <span class="lang-en">Created by sand casting aluminum from wood or tooling board patterns, followed by hand polishing and vent hole drilling. Cost-effective for large retail blisters.</span>
+          </p>
         </div>
       </div>
     </section>
 
     <!-- 6. 聯絡我們 (Contact Us) -->
     <section id="contact" class="page-section">
-      <div class="breadcrumb"><a onclick="switchTab('home')">首頁</a> / 聯絡我們</div>
-      <h2>聯絡漢益塑膠實業</h2>
-      <p>如果您有任何真空成型產品（防靜電/導電 Tray 盤、雙泡殼、真空包裝）、塑膠射出加工、精密模具與治具開發的需求，歡迎透過以下方式與我們聯絡，我們將由專人竭誠為您服務。</p>
+      <div class="breadcrumb">
+        <a onclick="switchTab('home')"><span class="lang-zh">首頁</span><span class="lang-en">Home</span></a> / 
+        <span class="lang-zh">聯絡我們</span><span class="lang-en">Contact Us</span>
+      </div>
+      <h1>
+        <span class="lang-zh">聯絡漢益塑膠實業</span><span class="lang-en">Contact Han Yih Plastics</span>
+      </h1>
+      <p>
+        <span class="lang-zh">如果您有任何真空成型產品（防靜電/導電 Tray 盤、雙泡殼、真空包裝）、塑膠射出加工、精密模具與治具開發的需求，歡迎透過以下方式與我們聯絡，我們將由專人竭誠為您服務。</span>
+        <span class="lang-en">For inquiries regarding thermoformed packaging (ESD trays, clamshells, blisters), plastic injection molding, or custom mold & fixture development, please feel free to reach out.</span>
+      </p>
 
       <div class="grid-2">
         <div>
-          <h3>公司聯絡資訊</h3>
+          <h2>
+            <span class="lang-zh">公司聯絡資訊</span><span class="lang-en">Contact Details</span>
+          </h2>
           <div class="card" style="line-height:2;">
-            <p><strong>漢益塑膠實業股份有限公司</strong></p>
-            <p>📍 <strong>廠區地址：</strong>428 台中市大雅區神林路一段234巷1號</p>
-            <p>📞 <strong>聯絡電話：</strong><a href="tel:+886425663216" style="color:var(--primary); font-weight:bold;">+886-4-25663216</a></p>
-            <p>📠 <strong>傳真號碼：</strong>+886-4-25685835</p>
-            <p>✉️ <strong>電子郵件：</strong><a href="mailto:service@hanyih.com.tw" style="color:var(--primary);">service@hanyih.com.tw</a></p>
-            <a href="https://maps.google.com/?q=台中市大雅區神林路一段234巷1號" target="_blank" class="btn" style="display:inline-block; margin-top:10px;">在 Google 地圖上開啟</a>
+            <p><strong>漢益塑膠實業股份有限公司 <br><span style="font-weight:normal; font-size:0.95rem; color:#666;">Han Yih Plastics Co., Ltd.</span></strong></p>
+            <p>📍 <strong><span class="lang-zh">廠區地址：</span><span class="lang-en">Address: </span></strong><span class="lang-zh">428 台中市大雅區神林路一段234巷1號</span><span class="lang-en">No. 1, Ln. 234, Sec. 1, Shenlin Rd., Daya Dist., Taichung City 428, Taiwan</span></p>
+            <p>📞 <strong><span class="lang-zh">聯絡電話：</span><span class="lang-en">Phone: </span></strong><a href="tel:+886425663216" style="color:var(--primary); font-weight:bold;">+886-4-25663216</a></p>
+            <p>📠 <strong><span class="lang-zh">傳真號碼：</span><span class="lang-en">Fax: </span></strong>+886-4-25685835</p>
+            <p>✉️ <strong><span class="lang-zh">電子郵件：</span><span class="lang-en">Email: </span></strong><a href="mailto:service@hanyih.com.tw" style="color:var(--primary);">service@hanyih.com.tw</a></p>
+            <a href="https://maps.google.com/?q=台中市大雅區神林路一段234巷1號" target="_blank" class="btn" style="display:inline-block; margin-top:10px;">
+              <span class="lang-zh">在 Google 地圖上開啟</span><span class="lang-en">Open in Google Maps</span>
+            </a>
           </div>
-			<div class="map-container">
-			<!-- 將您從 Google 地圖複製的 iframe 貼在這裡 -->
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.8895552298504!2d120.65334797535107!3d24.236732378341607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346916dcc02b733f%3A0x3f34b12417819663!2zNDI46Ie65Lit5biC5aSn6ZuF5Y2A5ZOh5p6X6YeM56We5p6X6Lev5LiA5q61MjM05be3MeiZnw!5e1!3m2!1szh-TW!2stw!4v1790003531899!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-
-  </div>
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.8895552298504!2d120.65334797535107!3d24.236732378341607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346916dcc02b733f%3A0x3f34b12417819663!2zNDI46Ie65Lit5biC5aSn6ZuF5Y2A5ZOh5p6X6YeM56We5p6X6Lev5LiA5q61MjM05be3MeiZnw!5e1!3m2!1szh-TW!2stw!4v1790003531899!5m2!1szh-TW!2stw" width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -663,22 +1003,29 @@
   <footer>
     <div class="footer-content">
       <div>
-        <h4 style="color:#fff; margin-bottom:15px;">漢益塑膠實業股份有限公司</h4>
-        <p style="color:#ccc;">深耕真空成型與塑膠加工領域逾 40 年，通過 ISO 9001:2015 認證。專注於高品質電子 Tray 盤、泡殼包裝與精密 CNC 模具製造。</p>
+        <h3 style="color:#fff; margin-bottom:15px;">漢益塑膠實業股份有限公司</h3>
+        <p style="color:#ccc;">
+          <span class="lang-zh">深耕真空成型與塑膠加工領域逾 40 年，通過 ISO 9001:2015 認證。專注於高品質電子 Tray 盤、泡殼包裝與精密 CNC 模具製造。</span>
+          <span class="lang-en">Over 40 years of excellence in thermoforming and custom plastic manufacturing. ISO 9001:2015 certified manufacturer specializing in ESD trays, blisters, and CNC tooling molds.</span>
+        </p>
       </div>
       <div>
-        <h4 style="color:#fff; margin-bottom:15px;">快速連結</h4>
-        <p><a onclick="switchTab('about')" style="color:#ccc; cursor:pointer;">關於漢益</a></p>
-        <p><a onclick="switchTab('products')" style="color:#ccc; cursor:pointer;">產品與應用</a></p>
-        <p><a onclick="switchTab('gallery')" style="color:#ccc; cursor:pointer;">產品圖庫</a></p>
-        <p><a onclick="switchTab('technology')" style="color:#ccc; cursor:pointer;">真空成型技術</a></p>
-        <p><a onclick="switchTab('contact')" style="color:#ccc; cursor:pointer;">聯絡我們</a></p>
+        <h3 style="color:#fff; margin-bottom:15px;">
+          <span class="lang-zh">快速連結</span><span class="lang-en">Quick Links</span>
+        </h3>
+        <p><a onclick="switchTab('about')" style="color:#ccc; cursor:pointer;"><span class="lang-zh">關於漢益</span><span class="lang-en">About Us</span></a></p>
+        <p><a onclick="switchTab('products')" style="color:#ccc; cursor:pointer;"><span class="lang-zh">產品與應用</span><span class="lang-en">Products</span></a></p>
+        <p><a onclick="switchTab('gallery')" style="color:#ccc; cursor:pointer;"><span class="lang-zh">產品圖庫</span><span class="lang-en">Gallery</span></a></p>
+        <p><a onclick="switchTab('technology')" style="color:#ccc; cursor:pointer;"><span class="lang-zh">真空成型技術</span><span class="lang-en">Technology</span></a></p>
+        <p><a onclick="switchTab('contact')" style="color:#ccc; cursor:pointer;"><span class="lang-zh">聯絡我們</span><span class="lang-en">Contact Us</span></a></p>
       </div>
       <div>
-        <h4 style="color:#fff; margin-bottom:15px;">廠區資訊</h4>
-        <p style="color:#ccc;">地址：台中市大雅區神林路一段234巷1號</p>
-        <p style="color:#ccc;">電話：04-25663216</p>
-        <p style="color:#ccc;">傳真：04-25685835</p>
+        <h3 style="color:#fff; margin-bottom:15px;">
+          <span class="lang-zh">廠區資訊</span><span class="lang-en">Contact Info</span>
+        </h3>
+        <p style="color:#ccc;"><span class="lang-zh">地址：台中市大雅區神林路一段234巷1號</span><span class="lang-en">Add: No.1, Ln. 234, Sec. 1, Shenlin Rd., Daya Dist., Taichung, Taiwan</span></p>
+        <p style="color:#ccc;"><span class="lang-zh">電話：04-25663216</span><span class="lang-en">Tel: +886-4-25663216</span></p>
+        <p style="color:#ccc;"><span class="lang-zh">傳真：04-25685835</span><span class="lang-en">Fax: +886-4-25685835</span></p>
         <p style="color:#ccc;">信箱：service@hanyih.com.tw</p>
       </div>
     </div>
@@ -687,42 +1034,61 @@
     </div>
   </footer>
 
-  <!-- JavaScript for Tab Switching, Responsive Navigation and Gallery Filter -->
+  <!-- JavaScript for Tab Switching, Language Toggle and Gallery Filter -->
   <script>
+    // 切換語言功能 (Zh / En)
+    function setLanguage(lang) {
+      if (lang === 'en') {
+        document.body.classList.remove('lang-zh');
+        document.body.classList.add('lang-en');
+        document.getElementById('btn-en').classList.add('active');
+        document.getElementById('btn-zh').classList.remove('active');
+        document.documentElement.lang = 'en';
+      } else {
+        document.body.classList.remove('lang-en');
+        document.body.classList.add('lang-zh');
+        document.getElementById('btn-zh').classList.add('active');
+        document.getElementById('btn-en').classList.remove('active');
+        document.documentElement.lang = 'zh-TW';
+      }
+      localStorage.setItem('hanyih_lang', lang);
+    }
+
+    // 頁面初始化檢測語言設定
+    (function initLang() {
+      const savedLang = localStorage.getItem('hanyih_lang');
+      if (savedLang) {
+        setLanguage(savedLang);
+      }
+    })();
+
     // 切換頁面 Tab
     function switchTab(tabId) {
-      // Hide all sections
       const sections = document.querySelectorAll('.page-section');
       sections.forEach(section => section.classList.remove('active'));
 
-      // Deactivate all nav links
       const navs = document.querySelectorAll('.nav-links a');
       navs.forEach(nav => nav.classList.remove('active'));
 
-      // Show targeted section
       const targetSection = document.getElementById(tabId);
       if (targetSection) {
         targetSection.classList.add('active');
       }
 
-      // Activate corresponding nav link
       const targetNav = document.getElementById('nav-' + tabId);
       if (targetNav) {
         targetNav.classList.add('active');
       }
 
-      // Scroll to top smoothly
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // 產品圖庫分類篩選功能
     function filterGallery(category, button) {
-      // 切換按鈕 active 狀態
       const buttons = document.querySelectorAll('.filter-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
 
-      // 顯隱卡片
       const cards = document.querySelectorAll('.gallery-card');
       cards.forEach(card => {
         if (category === 'all' || card.getAttribute('data-category') === category) {
