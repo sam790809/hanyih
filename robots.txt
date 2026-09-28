@@ -1,3 +1,7 @@
 User-agent: *
-Allow: /
-Sitemap: https://hanyih.com.tw/
+Disallow: /404.html
+Disallow: /_redirects
+Disallow: /sitemap.html
+
+# 指定 Sitemap 網址
+Sitemap: https://hanyih.com.tw/sitemap.xml
