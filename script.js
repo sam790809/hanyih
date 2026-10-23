@@ -18,51 +18,23 @@ function setLanguage(lang) {
     document.body.classList.add('lang-zh');
     document.documentElement.lang = 'zh-TW';
   }
-// 動態載入 Header
-  fetch('header.html')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('找不到 header.html 檔案');
-      }
-      return response.text();
-    })
-    .then(data => {
-      const headerElem = document.getElementById('site-header');
-      if (headerElem) {
-        headerElem.innerHTML = data;
-        
-        // 1. 同步語言與按鈕狀態
-        setLanguage(getCurrentLang());
 
-        // 2. 自動判斷目前頁面並點亮對應選單（使用關鍵字判斷，更穩定）
-        const path = window.location.pathname;
-        let activeId = 'nav-home'; // 預設首頁
+  // 同步更新 Header 中的按鈕 active 狀態
+  const btnZh = document.getElementById('btn-zh');
+  const btnEn = document.getElementById('btn-en');
 
-        if (path.includes('about')) {
-          activeId = 'nav-about';
-        } else if (path.includes('products')) {
-          activeId = 'nav-products';
-        } else if (path.includes('gallery')) {
-          activeId = 'nav-gallery';
-        } else if (path.includes('technology')) {
-          activeId = 'nav-technology';
-        } else if (path.includes('contact')) {
-          activeId = 'nav-contact';
-        }
+  if (btnZh && btnEn) {
+    if (lang === 'en') {
+      btnEn.classList.add('active');
+      btnZh.classList.remove('active');
+    } else {
+      btnZh.classList.add('active');
+      btnEn.classList.remove('active');
+    }
+  }
 
-        // 移除所有 active
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-
-        // 點亮對應選單
-        const activeElem = document.getElementById(activeId);
-        if (activeElem) {
-          activeElem.classList.add('active');
-        }
-      }
-    })
-    .catch(error => {
-      console.error('載入 Header 失敗:', error);
-    });
+  localStorage.setItem('hanyih_lang', lang);
+}
 
 // 頁面初次載入時初始化語言
 (function initLang() {
@@ -111,10 +83,55 @@ function filterGallery(category, button) {
 }
 
 // ==========================================
-// 3. 動態模組載入 (Footer)
+// 3. 動態模組載入 (Header & Footer)
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 動態載入 Header
+  fetch('header.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('找不到 header.html 檔案');
+      }
+      return response.text();
+    })
+    .then(data => {
+      const headerElem = document.getElementById('site-header');
+      if (headerElem) {
+        headerElem.innerHTML = data;
+        
+        // 1. 同步語言與按鈕狀態
+        setLanguage(getCurrentLang());
+
+        // 2. 自動判斷目前頁面並點亮對應選單（使用關鍵字判斷，更穩定）
+        const path = window.location.pathname;
+        let activeId = 'nav-home'; // 預設首頁
+
+        if (path.includes('about')) {
+          activeId = 'nav-about';
+        } else if (path.includes('products')) {
+          activeId = 'nav-products';
+        } else if (path.includes('gallery')) {
+          activeId = 'nav-gallery';
+        } else if (path.includes('technology')) {
+          activeId = 'nav-technology';
+        } else if (path.includes('contact')) {
+          activeId = 'nav-contact';
+        }
+
+        // 移除所有 active
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+        // 點亮對應選單
+        const activeElem = document.getElementById(activeId);
+        if (activeElem) {
+          activeElem.classList.add('active');
+        }
+      }
+    })
+    .catch(error => {
+      console.error('載入 Header 失敗:', error);
+    });
 
   // 動態載入 Footer
   fetch('footer.html')
