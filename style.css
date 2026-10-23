@@ -1,15 +1,13 @@
-
     :root {
-      --primary: #004b87;
-      --primary-dark: #003366;
-      --secondary: #00a3e0;
-      --accent: #ff6b00;
+      --primary: #0088cc;      /* 網頁主色：對應 Logo 藍色 */
+      --primary-dark: #005599; /* 深度主色：用於深色區塊與滑鼠懸停 */
+      --secondary: #00b0f0;    /* 次要色：對應 Logo 外環的青藍色 */
+      --accent: #ffcc00;       /* 強調與按鈕色：對應 Logo 內圓的金黃色 */
       --bg-light: #f8f9fa;
       --text-dark: #2c3e50;
       --text-muted: #6c757d;
       --border-color: #e9ecef;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; color: var(--text-dark); line-height: 1.6; background-color: #fff; }
     
