@@ -18,23 +18,47 @@ function setLanguage(lang) {
     document.body.classList.add('lang-zh');
     document.documentElement.lang = 'zh-TW';
   }
+// 動態載入 Header
+  fetch('header.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('找不到 header.html 檔案');
+      }
+      return response.text();
+    })
+    .then(data => {
+      const headerElem = document.getElementById('site-header');
+      if (headerElem) {
+        headerElem.innerHTML = data;
+        
+        // 1. 同步語言與按鈕狀態
+        setLanguage(getCurrentLang());
 
-  // 同步更新 Header 中的按鈕 active 狀態
-  const btnZh = document.getElementById('btn-zh');
-  const btnEn = document.getElementById('btn-en');
+        // 2. 自動判斷目前頁面並點亮對應選單
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const navMap = {
+          'index.html': 'nav-home',
+          'about.html': 'nav-about',
+          'products.html': 'nav-products',
+          'gallery.html': 'nav-gallery',
+          'technology.html': 'nav-technology',
+          'contact.html': 'nav-contact'
+        };
 
-  if (btnZh && btnEn) {
-    if (lang === 'en') {
-      btnEn.classList.add('active');
-      btnZh.classList.remove('active');
-    } else {
-      btnZh.classList.add('active');
-      btnEn.classList.remove('active');
-    }
-  }
+        // 移除所有 active
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
-  localStorage.setItem('hanyih_lang', lang);
-}
+        // 如果根目錄直接進來（沒有帶檔名），預設點亮首頁
+        const activeId = navMap[currentPath] || 'nav-home';
+        const activeElem = document.getElementById(activeId);
+        if (activeElem) {
+          activeElem.classList.add('active');
+        }
+      }
+    })
+    .catch(error => {
+      console.error('載入 Header 失敗:', error);
+    });
 
 // 頁面初次載入時初始化語言
 (function initLang() {
