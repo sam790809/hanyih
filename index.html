@@ -104,6 +104,8 @@
 
   <!-- Header / Navigation -->
   <header id="site-header"></header>
+  
+
   <!-- Main Content Container -->
   <main>
     <!-- 1. 首頁 (Home) -->
@@ -230,98 +232,116 @@
 
 
   <!-- JavaScript for Tab Switching, Language Toggle and Gallery Filter -->
-  <script>
-    // 切換語言功能 (Zh / En)
-    function setLanguage(lang) {
+<script>
+  // 切換語言功能 (Zh / En)
+  function setLanguage(lang) {
+    if (lang === 'en') {
+      document.body.classList.remove('lang-zh');
+      document.body.classList.add('lang-en');
+      document.documentElement.lang = 'en';
+    } else {
+      document.body.classList.remove('lang-en');
+      document.body.classList.add('lang-zh');
+      document.documentElement.lang = 'zh-TW';
+    }
+
+    // 更新按鈕 active 狀態（加上判斷避免動態 Header 未載入時報錯）
+    const btnZh = document.getElementById('btn-zh');
+    const btnEn = document.getElementById('btn-en');
+    
+    if (btnZh && btnEn) {
       if (lang === 'en') {
-        document.body.classList.remove('lang-zh');
-        document.body.classList.add('lang-en');
-        document.getElementById('btn-en').classList.add('active');
-        document.getElementById('btn-zh').classList.remove('active');
-        document.documentElement.lang = 'en';
+        btnEn.classList.add('active');
+        btnZh.classList.remove('active');
       } else {
-        document.body.classList.remove('lang-en');
-        document.body.classList.add('lang-zh');
-        document.getElementById('btn-zh').classList.add('active');
-        document.getElementById('btn-en').classList.remove('active');
-        document.documentElement.lang = 'zh-TW';
+        btnZh.classList.add('active');
+        btnEn.classList.remove('active');
       }
-      localStorage.setItem('hanyih_lang', lang);
     }
 
-    // 頁面初始化檢測語言設定
-    (function initLang() {
-      const savedLang = localStorage.getItem('hanyih_lang');
-      if (savedLang) {
-        setLanguage(savedLang);
-      }
-    })();
+    localStorage.setItem('hanyih_lang', lang);
+  }
 
-    // 切換頁面 Tab
-    function switchTab(tabId) {
-      const sections = document.querySelectorAll('.page-section');
-      sections.forEach(section => section.classList.remove('active'));
+  // 取得目前設定的語言
+  function getCurrentLang() {
+    return localStorage.getItem('hanyih_lang') || 'zh';
+  }
 
-      const navs = document.querySelectorAll('.nav-links a');
-      navs.forEach(nav => nav.classList.remove('active'));
+  // 頁面初始化檢測語言設定
+  (function initLang() {
+    setLanguage(getCurrentLang());
+  })();
 
-      const targetSection = document.getElementById(tabId);
-      if (targetSection) {
-        targetSection.classList.add('active');
-      }
+  // 切換頁面 Tab
+  function switchTab(tabId) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(section => section.classList.remove('active'));
 
-      const targetNav = document.getElementById('nav-' + tabId);
-      if (targetNav) {
-        targetNav.classList.add('active');
-      }
+    const navs = document.querySelectorAll('.nav-links a');
+    navs.forEach(nav => nav.classList.remove('active'));
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    const targetSection = document.getElementById(tabId);
+    if (targetSection) {
+      targetSection.classList.add('active');
     }
 
-    // 產品圖庫分類篩選功能
-    function filterGallery(category, button) {
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      const cards = document.querySelectorAll('.gallery-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+    const targetNav = document.getElementById('nav-' + tabId);
+    if (targetNav) {
+      targetNav.classList.add('active');
     }
-	// 動態載入 Header
-	fetch('header.html')
-		  .then(response => {
-			if (!response.ok) {
-			  throw new Error('找不到 header.html 檔案');
-			}
-			return response.text();
-		  })
-		  .then(data => {
-			document.getElementById('site-header').innerHTML = data;
-		  })
-		  .catch(error => {
-			console.error('載入 Header 失敗:', error);
-		  });
-		  
-	// 動態載入 Footer
-	  fetch('footer.html')
-		.then(response => {
-		  if (!response.ok) {
-			throw new Error('找不到 footer.html 檔案');
-		  }
-		  return response.text();
-		})
-		.then(data => {
-		  document.getElementById('site-footer').innerHTML = data;
-		})
-		.catch(error => {
-		  console.error('載入 Footer 失敗:', error);
-		});
-	</script>
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 產品圖庫分類篩選功能
+  function filterGallery(category, button) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    const cards = document.querySelectorAll('.gallery-card');
+    cards.forEach(card => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // 動態載入 Header（重點：載入完成後重新刷新語言按鈕狀態）
+  fetch('header.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('找不到 header.html 檔案');
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('site-header').innerHTML = data;
+      // Header 載入完成後，同步更新一次語言與按鈕狀態
+      setLanguage(getCurrentLang());
+    })
+    .catch(error => {
+      console.error('載入 Header 失敗:', error);
+    });
+    
+  // 動態載入 Footer
+  fetch('footer.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('找不到 footer.html 檔案');
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('site-footer').innerHTML = data;
+      // Footer 載入完成後，同步刷新語言
+      setLanguage(getCurrentLang());
+    })
+    .catch(error => {
+      console.error('載入 Footer 失敗:', error);
+    });
+</script>
 </body>
 </html>
