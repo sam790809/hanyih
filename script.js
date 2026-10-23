@@ -111,29 +111,10 @@ function filterGallery(category, button) {
 }
 
 // ==========================================
-// 3. 動態模組載入 (Header & Footer)
+// 3. 動態模組載入 (Footer)
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 動態載入 Header
-  fetch('header.html')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('找不到 header.html 檔案');
-      }
-      return response.text();
-    })
-    .then(data => {
-      const headerElem = document.getElementById('site-header');
-      if (headerElem) {
-        headerElem.innerHTML = data;
-        // Header 載入後同步語言與按鈕狀態
-        setLanguage(getCurrentLang());
-      }
-    })
-    .catch(error => {
-      console.error('載入 Header 失敗:', error);
-    });
 
   // 動態載入 Footer
   fetch('footer.html')
