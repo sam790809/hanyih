@@ -34,22 +34,26 @@ function setLanguage(lang) {
         // 1. 同步語言與按鈕狀態
         setLanguage(getCurrentLang());
 
-        // 2. 自動判斷目前頁面並點亮對應選單
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        const navMap = {
-          'index.html': 'nav-home',
-          'about.html': 'nav-about',
-          'products.html': 'nav-products',
-          'gallery.html': 'nav-gallery',
-          'technology.html': 'nav-technology',
-          'contact.html': 'nav-contact'
-        };
+        // 2. 自動判斷目前頁面並點亮對應選單（使用關鍵字判斷，更穩定）
+        const path = window.location.pathname;
+        let activeId = 'nav-home'; // 預設首頁
+
+        if (path.includes('about')) {
+          activeId = 'nav-about';
+        } else if (path.includes('products')) {
+          activeId = 'nav-products';
+        } else if (path.includes('gallery')) {
+          activeId = 'nav-gallery';
+        } else if (path.includes('technology')) {
+          activeId = 'nav-technology';
+        } else if (path.includes('contact')) {
+          activeId = 'nav-contact';
+        }
 
         // 移除所有 active
         document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
-        // 如果根目錄直接進來（沒有帶檔名），預設點亮首頁
-        const activeId = navMap[currentPath] || 'nav-home';
+        // 點亮對應選單
         const activeElem = document.getElementById(activeId);
         if (activeElem) {
           activeElem.classList.add('active');
