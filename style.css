@@ -1,7 +1,7 @@
 
 	:root {
 	  --primary: #0088cc;      /* 網頁主色：對應 Logo 藍色 */
-	  --primary-dark: #005599; /* 深度主色：用於深色區塊與滑鼠懸停 */
+	  --primary-dark: #0088cc; /* 深度主色：用於深色區塊與滑鼠懸停 */
 	  --secondary: #00b0f0;    /* 次要色：對應 Logo 外環的青藍色 */
 	  --accent: #ffcc00;       /* 強調與按鈕色：對應 Logo 內圓的金黃色 */
 	  --bg-light: #f8f9fa;
