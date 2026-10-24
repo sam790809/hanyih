@@ -41,6 +41,7 @@
     .top-bar { background-color: var(--primary-dark); color: #fff; padding: 6px 5%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
     .top-bar a { color: #fff; text-decoration: none; margin-left: 15px; }
     .top-bar-right { display: flex; align-items: center; }
+	.top-bar-content {  max-width: 1200px;  margin: 0 auto;  display: flex;  justify-content: space-between;  align-items: center;  width: 100%;}
     nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; max-width: 1200px; margin: 0 auto; }
     .logo { font-size: 1.4rem; font-weight: bold; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap;flex-shrink: 0;}
     .logo span { font-size: 0.85rem; color: var(--text-muted); font-weight: normal; white-space: nowrap;}
