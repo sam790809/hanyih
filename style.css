@@ -119,10 +119,20 @@
     .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
     .footer-bottom { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #aaa; }
 
-    @media (max-width: 768px) {
-      .top-bar { flex-direction: column; gap: 5px; text-align: center; }
-      .nav-links { flex-direction: column; gap: 10px; width: 100%; text-align: center; display: none; }
-      .nav-links.show { display: flex; padding-top: 15px; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-    }
+
+	@media (max-width: 768px) {
+		/* 改為控制內部容器，讓手機版時上下排列並置中 */
+		.top-bar-content { 
+		  flex-direction: column; 
+		  gap: 5px; 
+		  text-align: center; 
+		}
+		.top-bar-right {
+		  justify-content: center;
+		}
+		
+		.nav-links { flex-direction: column; gap: 10px; width: 100%; text-align: center; display: none; }
+		.nav-links.show { display: flex; padding-top: 15px; }
+		.grid-2 { grid-template-columns: 1fr; }
+		.gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+	  }
