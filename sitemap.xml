@@ -27,7 +27,7 @@
   <!-- 圖庫/案例展示 (Gallery) -->
   <url>
     <loc>https://hanyih.com.tw/gallery</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -35,7 +35,7 @@
   <!-- 技術介紹 (Technology) -->
   <url>
     <loc>https://hanyih.com.tw/technology</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
